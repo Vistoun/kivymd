@@ -1,0 +1,157 @@
+#:import math.ceil math
+
+BoxLayout:
+    orientation:'vertical'
+
+    MDToolbar:
+        title: 'Bottom navigation'
+        md_bg_color: .8, .2, .2, 1
+        specific_text_color: 1, 1, 1, 1
+
+    MDBottomNavigation:
+        id: navigation
+        panel_color: .8, .5, .4, 1
+
+        MDBottomNavigationItem:
+            name: 'screen 0'
+            text: 'Hlavní'
+            icon: 'home'
+
+            MainScreen:
+
+        MDBottomNavigationItem:
+            name: 'screen 1'
+            text: 'BMI'
+            icon: 'text'
+
+            TextScreen:
+
+        MDBottomNavigationItem:
+            name: 'screen 2'
+            text: 'Formulář'
+            icon: 'card-bulleted'
+
+            FormScreen:
+
+        MDBottomNavigationItem:
+            name: 'screen 3'
+            text: 'Tabulka'
+            icon: 'grid'
+
+            TableScreen:
+
+
+<TextScreen>:
+    name: 'textscreen'
+
+    FloatLayout:
+        canvas:
+            Color:
+                rgba: 1,1,1,1
+            RoundedRectangle:
+                pos: self.pos
+                size: self.size
+                radius: [0, 0, 0, 0]
+
+        MDLabel:
+            id: result
+            text: '0'
+            size_hint: (.5, .1)
+            pos_hint: {'center_x': 0.5, 'center_y': 0.9}
+            halign: 'center'
+            font_style: 'H5'
+            canvas.before:
+                Color:
+                    rgba: 1, 1, 1, 1
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint_x: 0.8
+            size_hint_y: 0.1
+            pos_hint: {'center_x': 0.5, 'center_y': 0.7}
+            height: self.minimum_height
+            spacing: 10
+            canvas.before:
+                Color:
+                    rgba: 0.9, 0.1, 0.2, 1
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+
+            MDLabel:
+                text: '  Váha'
+                canvas.before:
+                    Color:
+                        rgba: 1, 1, 1, 0.8
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+
+            MDTextField:
+                id: vaha
+                mode: 'fill'
+
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint_x: 0.8
+            size_hint_y: 0.1
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+            height: self.minimum_height
+            spacing: 10
+            canvas.before:
+                Color:
+                    rgba: 0.9, 0.1, 0.2, 1
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+
+            MDLabel:
+                text: '  Výška'
+                canvas.before:
+                    Color:
+                        rgba: 1, 1, 1, 0.8
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+
+            MDTextField:
+                id: vyska
+                mode: 'fill'
+
+
+        MDRaisedButton:
+            text: "Vypočítej"
+            md_bg_color: 0.9, 0.1, 0.2, 1
+            pos_hint: {'center_x': 0.5, 'center_y': 0.1}
+            on_press:
+                print("Stisknuto")
+                root.ids.result.text = str(round(int(root.ids.vaha.text) / (int(root.ids.vyska.text) / 100) ** 2, 2))
+
+<FormScreen>
+    name:'formscreen'
+    PageLayout:
+        MDLabel:
+            font_style: 'H2'
+            halign: 'center'
+            pos_hint : {'center_y':1}
+
+<TableScreen>:
+    name:'tablescreen'
+    PageLayout:
+        MDLabel:
+            text:'Table Screen'
+            font_style: 'H2'
+            halign: 'center'
+            pos_hint: {'center_y':0.75}
+
+<MainScreen>:
+    name : 'mainscreen'
+    PageLayout:
+        MDLabel:
+            text:'Main Screen'
+            font_style : 'H2'
+            halign : 'center'
+            pos_hint : {'center_y':0.7}
